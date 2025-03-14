@@ -1,6 +1,6 @@
 
 module.exports = {
-
+    publicPath: './',
     configureWebpack: {
 
         // other webpack options to merge in ...
@@ -12,7 +12,7 @@ module.exports = {
     devServer: {
 
         // public: '0.0.0.0:8080',
-        publicPath:'./',
+
         hot: true,
 
         disableHostCheck: true,
