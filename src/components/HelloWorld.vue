@@ -56,7 +56,7 @@
       <el-table-column v-for="(header, index) in tableHeaders" :key="index" :prop="header" :label="header" />
     </el-table>
 
-</div>
+</div> 
 
 
   </div>
