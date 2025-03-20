@@ -50,11 +50,13 @@
 
 
 
-
+<div style="display: flex;justify-content: center;">
     <!-- 展示表格数据 -->
-    <el-table :data="tableData" style="width: 100%; margin-top: 20px;" border>
+    <el-table :data="tableData" style="width: 90%; margin-top: 20px;" border>
       <el-table-column v-for="(header, index) in tableHeaders" :key="index" :prop="header" :label="header" />
     </el-table>
+
+</div>
 
 
   </div>
@@ -110,10 +112,16 @@ export default {
       const missingColumns = columnsToMerge.filter(
         (column) => !tableHeaders.value.includes(column)
       );
+
+      console.log(missingColumns, 'missingColumnsmissingColumns')
       if (missingColumns.length > 0) {
         ElMessage.warning(`未找到列：${missingColumns.join(', ')}`);
         return;
       }
+      var flag = tableHeaders.value.findIndex(item => {
+        return item == columnsToMerge[0]
+      })
+      console.log(flag, 'flagflag')
 
       // 合并列数据
       tableData.value = tableData.value.map((row) => {
@@ -130,8 +138,12 @@ export default {
       tableHeaders.value = tableHeaders.value.filter(
         (header) => !columnsToMerge.includes(header)
       );
-      tableHeaders.value.push(newColumnName); // 添加新列名
-
+      var a = JSON.parse(JSON.stringify(tableHeaders.value));
+      var a1 = JSON.parse(JSON.stringify(a))
+      var b = a.splice(0, flag);
+      var c = a1.splice(flag);
+      // 使表头在合并位置
+      tableHeaders.value = [...b, newColumnName, ...c]
       // 删除旧列数据
       tableData.value = tableData.value.map((row) => {
         columnsToMerge.forEach((column) => {
